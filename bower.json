@@ -4,17 +4,19 @@
   "authors": [
     "Manuel Yang <me@manuelyang.com>"
   ],
-  "description": "bower dependecies for the ListScrubber app.",
   "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "assets/linker/bower_components",
     "test",
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.2"
+    "angular": "~1.3.7",
+    "bourbon": "~4.0.2",
+    "neat": "~1.7.0"
   }
 }

@@ -1,0 +1,20 @@
+extends layout
+
+block head
+    title List Scrubber
+    meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes')
+    script(src='../linker/bower_components/angular/angular.js')
+
+block content
+    form(action='/file/uploadA', enctype="multipart/form-data", method='post')
+        input(type="file", name='emailscsv')
+        input(type='submit')
+
+    form(action='/file/uploadB', enctype="multipart/form-data", method='post')
+        input(type="file", name='emailscsv')
+        input(type='submit')
+    div.text
+
+block scripts
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script.

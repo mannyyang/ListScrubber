@@ -1,5 +1,6 @@
 // ListScrubber/api/controllers/FileController.js
-var csv = require('csv');
+var csv = require('fast-csv');
+var fs = require('fs');
 
 module.exports = {
 
@@ -12,18 +13,62 @@ module.exports = {
                 '<input type="file" name="avatar" multiple="multiple"><br>'+
                 '<input type="submit" value="Upload">'+
                 '</form>'
-        )
+        );
     },
-    upload: function  (req, res) {
-        req.file('avatar').upload(function (err, files) {
+    uploadA: function  (req, res) {
+        req.file('emailscsv').upload(function (err, files) {
             if (err)
                 return res.serverError(err);
+
+            var stream = fs.createReadStream(files[0].fd);
+            var emails = [];
+
+            var csvStream = csv()
+                .on("data", function(data){
+                    console.log(data);
+                    emails.push(data[0]);
+                })
+                .on("end", function(){
+                    console.log("done");
+                    sails.config.cache.personA = emails;
+                });
+
+            stream.pipe(csvStream);
 
             return res.json({
                 message: files.length + ' file(s) uploaded successfully!',
                 files: files
             });
         });
+    },
+    uploadB: function  (req, res) {
+        req.file('emailscsv').upload(function (err, files) {
+            if (err)
+                return res.serverError(err);
+
+            var stream = fs.createReadStream(files[0].fd);
+            var emails = [];
+
+            var csvStream = csv()
+                .on("data", function(data){
+                    emails.push(data[0]);
+                })
+                .on("end", function(){
+                    console.log("done");
+                    sails.config.cache.personB = emails;
+                    return res.json({
+                        message: files.length + ' file(s) uploaded successfully!',
+                        files: files,
+                        config: sails.config.cache
+                    });
+                });
+
+            stream.pipe(csvStream);
+
+        });
+
+
     }
+
 
 };
