@@ -3,18 +3,24 @@ extends layout
 block head
     title List Scrubber
     meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes')
-    script(src='../linker/bower_components/angular/angular.js')
+    //script(src='/bower_components/angular/angular.js')
+    link(rel="stylesheet", href="/styles/main.css")
 
 block content
-    form(action='/file/uploadA', enctype="multipart/form-data", method='post')
-        input(type="file", name='emailscsv')
-        input(type='submit')
+    div.form-container
+        form#formA(action='/file/uploadA', enctype="multipart/form-data", method='post')
+            input(type="file", name='emailcsv', data-url="/file/uploadA")
+            input(type='submit')
 
-    form(action='/file/uploadB', enctype="multipart/form-data", method='post')
-        input(type="file", name='emailscsv')
-        input(type='submit')
-    div.text
+        form#formB(action='/file/uploadB', enctype="multipart/form-data", method='post')
+            input(type="file", name='emailcsv')
+            input(type='submit')
+    p
 
 block scripts
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
-    script.
+    script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js')
+    script(src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.min.js")
+    script(src='/js/vendors/jquery.fileupload.js')
+
+    script(src='/js/main.js')

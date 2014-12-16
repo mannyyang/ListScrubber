@@ -1,0 +1,11 @@
+div.form-container {
+  @include outer-container;
+
+  #formA {
+    @include span-columns(6);
+  }
+
+  #formB {
+    @include span-columns(6);
+  }
+}

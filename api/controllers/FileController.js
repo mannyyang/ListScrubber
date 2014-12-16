@@ -16,7 +16,7 @@ module.exports = {
         );
     },
     uploadA: function  (req, res) {
-        req.file('emailscsv').upload(function (err, files) {
+        req.file('emailcsv').upload(function (err, files) {
             if (err)
                 return res.serverError(err);
 
