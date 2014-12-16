@@ -8,14 +8,19 @@ block head
 
 block content
     div.form-container
-        form#formA(action='/file/uploadA', enctype="multipart/form-data", method='post')
-            input(type="file", name='emailcsv', data-url="/file/uploadA")
-            input(type='submit')
-
-        form#formB(action='/file/uploadB', enctype="multipart/form-data", method='post')
-            input(type="file", name='emailcsv')
-            input(type='submit')
-    p
+        div.person-a
+            span Person A
+            form#formA(action='/file/uploadA', enctype="multipart/form-data", method='post')
+                input(type="file", name='emailcsv', data-url="/file/uploadA")
+                input(type='submit')
+        div.person-b
+            span Person B
+            form#formB(action='/file/uploadB', enctype="multipart/form-data", method='post')
+                input(type="file", name='emailcsv', data-url="/file/uploadB")
+                input(type='submit')
+    div.results
+        div.button Get Duplicates
+        p.result
 
 block scripts
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')

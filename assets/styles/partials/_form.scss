@@ -1,0 +1,30 @@
+div.form-container {
+  span {
+    display: block;
+  }
+
+  @include outer-container;
+  %person {
+    @include padding(20px);
+  }
+
+  .person-a {
+    @extend %person;
+    @include span-columns(6);
+    #formA {
+
+    }
+  }
+
+  .person-b{
+    @extend %person;
+    @include span-columns(6);
+    #formB {
+    }
+  }
+
+}
+
+.button {
+  @include button;
+}

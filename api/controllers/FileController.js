@@ -38,37 +38,50 @@ module.exports = {
             return res.json({
                 message: files.length + ' file(s) uploaded successfully!',
                 files: files
+
             });
         });
     },
     uploadB: function  (req, res) {
-        req.file('emailscsv').upload(function (err, files) {
-            if (err)
-                return res.serverError(err);
+      req.file('emailcsv').upload(function (err, files) {
+        if (err)
+          return res.serverError(err);
 
-            var stream = fs.createReadStream(files[0].fd);
-            var emails = [];
+        var stream = fs.createReadStream(files[0].fd);
+        var emails = [];
 
-            var csvStream = csv()
-                .on("data", function(data){
-                    emails.push(data[0]);
-                })
-                .on("end", function(){
-                    console.log("done");
-                    sails.config.cache.personB = emails;
-                    return res.json({
-                        message: files.length + ' file(s) uploaded successfully!',
-                        files: files,
-                        config: sails.config.cache
-                    });
-                });
+        var csvStream = csv()
+          .on("data", function(data){
+            console.log(data);
+            emails.push(data[0]);
+          })
+          .on("end", function(){
+            console.log("done");
+            sails.config.cache.personB = emails;
+          });
 
-            stream.pipe(csvStream);
+        stream.pipe(csvStream);
+
+        return res.json({
+          message: files.length + ' file(s) uploaded successfully!',
+          files: files
 
         });
-
+      });
+    },
+    getPeople: function(req, res) {
+      res.send({
+        data: sails.config.cache
+      });
+    },
+    getDuplicates: function(req, res){
+      var result = _.difference(sails.config.cache.personA, sails.config.cache.personB);
+      res.send({
+        data: result
+      });
 
     }
+
 
 
 };
